@@ -4,37 +4,41 @@
       <h1 class="title">
       EAT DA BURGER
       </h1>
-      <img src="assets/img/burger.png" height = "150" width = "150">
+      <img src="assets/img/burger-2.png" height = "150" width = "150">
     </div>
   </div>
 </section>
 
 <div class = "tile is-ancestor" id="holder">
-    <div class="tile is-parent is-2"></div>
+   
+  <div class="tile is-parent is-2"></div>
+    <h2>Burgers</h2>
    <div class="tile is-parent is-4">
-    <ul tile = "tile is-child">
-        <h2>Burgers</h2>
-        {{#each burgers}}
-            {{#unless this.devoured}}
-        <li>
-            <p> {{id}}. {{burger_name}}
-                <button data-burgerid="{{id}}" class = "devour">Devour It!</button>
-            </p>
-        </li>
-        {{/unless}}
+          {{#if burgers}}
+        
+         <ul class = "items tile is-child">
+         {{#each burgers}}
+              <li>
+                  <p> {{id}}. {{burger_name}}
+                    <button data-burgerid="{{id}}" class=" is-success is-light devour button is-small">DEVOUR IT</button>
+                 </p>
+              </li>
+        
         {{/each}}
+        {{/if}}
     </ul>
   </div>
+  <h2>Eaten Burgers</h2>
   <div class="tile is-parent">
-     <ul class="tile is-child">
-         <h2>Eaten Burgers</h2>
-        {{#each burgers}}
-            {{#if this.devoured}}
-        <li>
-            <p>{{burger_name}}</p>
-        </li>
-        {{/if}}
+        {{#if eaten}}
+      <ul class="tile is-child">
+          {{#each eaten}}
+           <li>
+               <p>{{burger_name}}</p>
+            </li>
+       
         {{/each}}
+         {{/if}}
     </ul>
   </div>
 </div>
@@ -45,3 +49,12 @@
     <textarea name="burger" type="text"></textarea>
     <button type="submit">Submit</button>
 </form>
+
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script>
+
+
+
+
+</script>

@@ -33,9 +33,27 @@ connection.connect(function(err){
 });
 
 app.get("/", (req,res)=> {
+    connection.query("SELECT * FROM BURGERS", (err,data)=> {
+        if (err) {
+            return res.status(500).end
+        }
+        const eatenBurgers = data.filter(burger => burger.devoured === 1);
+        const freshBurgers = data.filter(burger => burger.devoured === 0);
 
+        res.render("index", {burgers: freshBurgers, eaten: eatenBurgers})
+    })
 })
 
+
+app.post("/api/burger/add",(req,res)=> {
+  connection.query("INSERT INTO burger (burger_name) VALUES (?,?)", [req.body.burger, "false"], (err, data) => {
+      if (err) {
+          return res.status(500).end();
+      } 
+  })
+
+
+})
 app.listen(PORT, ()=> {
     console.log(`${PORT} is listening`)
 })
