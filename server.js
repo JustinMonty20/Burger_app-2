@@ -13,6 +13,7 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
+
 if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
@@ -33,9 +34,9 @@ connection.connect(function(err){
 });
 
 app.get("/", (req,res)=> {
-    connection.query("SELECT * FROM BURGERS", (err,data)=> {
+    connection.query("SELECT * FROM burgers", (err,data)=> {
         if (err) {
-            return res.status(500).end
+            return res.sendStatus(500)
         }
         const eatenBurgers = data.filter(burger => burger.devoured === 1);
         const freshBurgers = data.filter(burger => burger.devoured === 0);
@@ -45,11 +46,14 @@ app.get("/", (req,res)=> {
 })
 
 
-app.post("/api/burger/add",(req,res)=> {
-  connection.query("INSERT INTO burger (burger_name) VALUES (?,?)", [req.body.burger, "false"], (err, data) => {
+app.post("/api/burger", (req,res)=> {
+  connection.query("INSERT INTO burgers SET ?", {burger_name: req.body.name}, (err, data) => {
       if (err) {
+          console.log(err)
           return res.status(500).end();
       } 
+      res.sendStatus(200)
+      console.log(req.body.burger)
   })
 
 

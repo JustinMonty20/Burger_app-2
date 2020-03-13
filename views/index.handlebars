@@ -43,18 +43,30 @@
   </div>
 </div>
 
+<div class="tile">
+  <div class="tile is-parent">
+  <div class="tile is-parent is-4"></div>
+  <h2 id ="add">Add a burger: </h2>
+    <div class="tile is-child">
+      <form id="addaburger" class="button-size">
+         <textarea name="burger" type="text"></textarea>
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-<h2>Add a burger</h2>
-<form id="addaburger" class="button-size">
-    <textarea name="burger" type="text"></textarea>
-    <button type="submit">Submit</button>
-</form>
 
-
-<script src="https://code.jquery.com/jquery.js"></script>
 <script>
-
-
-
-
+$("#addaburger").on("submit", (e) =>{
+  e.preventDefault();
+  let burgerName = $("#addaburger [name=burger]").val().trim()
+  console.log(burgerName)
+  $.post('/api/burger',{ name : burgerName }).then(results=> {
+    console.log(results)
+    if(results==='OK'){
+      location.reload()
+    }
+  })
+})
 </script>
