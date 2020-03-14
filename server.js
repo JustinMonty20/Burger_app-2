@@ -34,7 +34,8 @@ connection.connect(function(err){
 });
 
 app.get("/", (req,res)=> {
-    connection.query("SELECT * FROM burgers", (err,data)=> {
+    connection.query("SELECT * FROM burgers", (err, data)=> {
+        console.log(data)
         if (err) {
             return res.sendStatus(500)
         }
@@ -50,11 +51,26 @@ app.post("/api/burger", (req,res)=> {
   connection.query("INSERT INTO burgers SET ?", {burger_name: req.body.name}, (err, data) => {
       if (err) {
           console.log(err)
-          return res.status(500).end();
+          return res.sendStatus(500)
       } 
       res.sendStatus(200)
-      console.log(req.body.burger)
   })
+
+
+app.put("/api/burger/:id", (req,res)=>{
+    console.log("Route is being hit!!!!!")
+    connection.query("UPDATE burgers SET devoured = true WHERE ID = ?", [req.params.id], (err,results)=>{ 
+        console.log(results)
+        if(err) {
+            console.log(err)
+            return res.sendStatus(500)
+         } 
+         else if (!results.changedRows) {
+            console.log("nothing is being changed")
+         }
+         res.sendStatus(200)
+     })
+ })
 
 
 })

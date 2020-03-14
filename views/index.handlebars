@@ -14,23 +14,20 @@
   <div class="tile is-parent is-2"></div>
     <h2>Burgers</h2>
    <div class="tile is-parent is-4">
-          {{#if burgers}}
         
          <ul class = "items tile is-child">
          {{#each burgers}}
               <li>
-                  <p> {{id}}. {{burger_name}}
-                    <button data-burgerid="{{id}}" class=" is-success is-light devour button is-small">DEVOUR IT</button>
+                  <p> {{burger_name}}
+                    <button data-id="{{ id }}" class="is-success is-light devour button is-small">DEVOUR IT</button>
                  </p>
               </li>
         
         {{/each}}
-        {{/if}}
     </ul>
   </div>
   <h2>Eaten Burgers</h2>
   <div class="tile is-parent">
-        {{#if eaten}}
       <ul class="tile is-child">
           {{#each eaten}}
            <li>
@@ -38,7 +35,7 @@
             </li>
        
         {{/each}}
-         {{/if}}
+  
     </ul>
   </div>
 </div>
@@ -57,16 +54,32 @@
 </div>
 
 
-<script>
+<script "text/javascript">
 $("#addaburger").on("submit", (e) =>{
   e.preventDefault();
   let burgerName = $("#addaburger [name=burger]").val().trim()
-  console.log(burgerName)
+
+
   $.post('/api/burger',{ name : burgerName }).then(results=> {
-    console.log(results)
     if(results==='OK'){
       location.reload()
     }
   })
 })
+
+  $(".devour").on("click", function(e){ 
+    e.preventDefault();
+
+    var id = $(this).data("id")
+
+
+    $.ajax("/api/burger/" + id, {
+      type: "PUT"
+    }).then(()=>{
+      console.log("updated id ", id);
+      location.reload();
+    });
+  });
+
+
 </script>
