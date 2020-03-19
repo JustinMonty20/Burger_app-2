@@ -35,7 +35,6 @@ connection.connect(function(err){
 
 app.get("/", (req,res)=> {
     connection.query("SELECT * FROM burgers", (err, data)=> {
-        console.log(data)
         if (err) {
             return res.sendStatus(500)
         }
@@ -63,12 +62,12 @@ app.put("/api/burger/:id", (req,res)=>{
         console.log(results)
         if(err) {
             console.log(err)
-            return res.sendStatus(500)
+            return res.sendStatus(500).end()
          } 
          else if (!results.changedRows) {
             console.log("nothing is being changed")
          }
-         res.sendStatus(200)
+         res.sendStatus(200).end();
      })
  })
 

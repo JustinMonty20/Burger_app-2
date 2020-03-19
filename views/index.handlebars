@@ -74,7 +74,8 @@ $("#addaburger").on("submit", (e) =>{
 
 
     $.ajax("/api/burger/" + id, {
-      type: "PUT"
+      type: "PUT",
+      data: id
     }).then(()=>{
       console.log("updated id ", id);
       location.reload();
