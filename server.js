@@ -13,18 +13,14 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-
-if (process.env.JAWSDB_URL) {
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
-    connection = mysql.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: 'ba5@96Jm',
-        database: 'eat_da_burger_db'
+connection = mysql.createConnection({
+    host: 'us-cdbr-iron-east-04.cleardb.net',
+    port: 3306,
+    user: 'bc030990dbe712',
+    password: 'b20610e2',
+    database: 'heroku_0417969de3d3b02'
     });
-};
+
 
 connection.connect(function(err){
     if(err){
