@@ -57,7 +57,7 @@ app.post("/api/burger", (req,res)=> {
 
 
 app.put("/api/burger/:id", (req,res)=>{
-    console.log("Route is being hit!!!!!")
+    // console.log("Route is being hit!!!!!")
     connection.query("UPDATE burgers SET devoured = true WHERE ID = ?", [req.params.id], (err,results)=>{ 
         console.log(results)
         if(err) {
