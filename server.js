@@ -13,16 +13,17 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-connection = mysql.createConnection({
+const pool = mysql.createPool({
+    connectionLimit: 10,
     host: 'us-cdbr-iron-east-04.cleardb.net',
     port: 3306,
     user: 'bc030990dbe712',
     password: 'b20610e2',
     database: 'heroku_0417969de3d3b02'
-    });
+    }); 
 
 
-connection.connect(function(err){
+pool.getConnection(function(err, connection){
     if(err){
         console.error("error connecting: " + err.stack);
     }
